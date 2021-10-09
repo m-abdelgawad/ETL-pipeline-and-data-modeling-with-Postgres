@@ -135,6 +135,9 @@ def main():
     # Close the connection with Sparkify DB. 
     connection.close()
 
+    # Print a success message
+    print("\nAll tables have been created successfully!\n")
+
 
 # Execute the main function
 if __name__ == "__main__":

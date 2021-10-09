@@ -18,7 +18,7 @@ time_table_drop = "DROP TABLE IF EXISTS time"
 # SERIAL: storage size = 4 bytes, Range = 1 to 2, 147, 483, 647
 # The timestamp datatype allows you to store both date and time. 
 # However, it does not have any time zone data.
-songplay_table_create = ("""
+songplay_table_create = """
     CREATE TABLE IF NOT EXISTS songplays (
         songplay_id SERIAL PRIMARY KEY,
         start_time TIMESTAMP,
@@ -30,7 +30,7 @@ songplay_table_create = ("""
         location VARCHAR,
         user_agent VARCHAR
     );
-""")
+"""
 
 # >>> Create Dimension Tables <<<
 
@@ -40,7 +40,7 @@ songplay_table_create = ("""
 # n → defines the length of the string. 
 # The length is fixed and indicates the number of characters 
 # declared when a table is created.
-users_table_create = ("""
+users_table_create = """
     CREATE TABLE IF NOT EXISTS users (
         user_id INTEGER PRIMARY KEY,
         first_name VARCHAR,
@@ -48,11 +48,11 @@ users_table_create = ("""
         gender CHAR(1),
         level VARCHAR    
     );
-""")
+"""
 
 # Songs Table
 
-songs_table_create = ("""
+songs_table_create = """
     CREATE TABLE IF NOT EXISTS songs (
         song_id VARCHAR PRIMARY KEY,
         title VARCHAR,
@@ -60,7 +60,7 @@ songs_table_create = ("""
         year INTEGER,
         duration DECIMAL    
     );
-""")
+"""
 
 # Artists Table
 
@@ -72,7 +72,7 @@ songs_table_create = ("""
 # be e.g. a column that stores how many products were ordered 
 # (assuming you can't order "half" a product).
 
-artists_table_create = ("""
+artists_table_create = """
     CREATE TABLE IF NOT EXISTS artists (
         artist_id VARCHAR PRIMARY KEY,
         name VARCHAR,
@@ -80,9 +80,9 @@ artists_table_create = ("""
         latitude DECIMAL,
         longitude DECIMAL    
     );
-""")
+"""
 
-time_table_create = ("""
+time_table_create = """
     CREATE TABLE IF NOT EXISTS time (
         start_time TIMESTAMP PRIMARY KEY,
         hour INTEGER,
@@ -92,23 +92,82 @@ time_table_create = ("""
         year INTEGER,
         weekday INTEGER    
     );
-""")
+"""
 
 ############################ INSERT RECORDS Queries #########################
 
-songplay_table_insert = ""
+# NOTE THAT: we must not add 'songplay_id' column in the INSERT query, nor  
+# make a placeholder for it; because the columns type is SERIAL, 
+# and is generated automatically
+songplay_table_insert = """
+    INSERT INTO songplays (
+        start_time,
+        user_id,
+        level,
+        song_id,
+        artist_id,
+        session_id,
+        location,
+        user_agent
+    )
+    VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
+"""
 
-users_table_insert = ""
+users_table_insert = """
+    INSERT INTO users (
+        user_id,
+        first_name,
+        last_name,
+        gender,
+        level
+    )
+    VALUES (%s, %s, %s, %s, %s)
+"""
 
-songs_table_insert = ""
+songs_table_insert = """
+    INSERT INTO songs (
+        song_id,
+        title,
+        artist_id,
+        year,
+        duration 
+    )
+    VALUES (%s, %s, %s, %s, %s)
+"""
 
-artists_table_insert = ""
+artists_table_insert = """
+    INSERT INTO artists (
+        artist_id,
+        name,
+        location,
+        latitude,
+        longitude
+    )
+    VALUES (%s, %s, %s, %s, %s)
+"""
 
-time_table_insert = ""
+time_table_insert = """
+    INSERT INTO time (
+        start_time,
+        hour,
+        day,
+        week,
+        month,
+        year,
+        weekday
+    )
+    VALUES (%s, %s, %s, %s, %s, %s, %s)
+"""
 
 ############################# FIND SONGS Query ###########################
 
-songs_select = ""
+song_select = """
+    SELECT s.song_id, a.artist_id
+    FROM songs s
+    JOIN artists a
+    ON s.artist_id = a.artist_id
+    WHERE s.title = %s AND a.name = %s AND s.duration = %s 
+"""
 
 ############################ QUERY LISTS ###########################
 
