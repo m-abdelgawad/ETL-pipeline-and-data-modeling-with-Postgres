@@ -84,7 +84,7 @@ artists_table_create = """
 
 time_table_create = """
     CREATE TABLE IF NOT EXISTS time (
-        start_time TIMESTAMP PRIMARY KEY,
+        start_time TIMESTAMP,
         hour INTEGER,
         day INTEGER,
         week INTEGER,
@@ -113,6 +113,9 @@ songplay_table_insert = """
     VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
 """
 
+# if there is a conflict on the user ID, we only expect the updated data
+# to have update only in the 'level' column
+# so, in this case, we only update the 'level' column from the new record
 users_table_insert = """
     INSERT INTO users (
         user_id,
@@ -122,6 +125,9 @@ users_table_insert = """
         level
     )
     VALUES (%s, %s, %s, %s, %s)
+    ON CONFLICT (user_id)
+    DO UPDATE
+        SET level = EXCLUDED.level
 """
 
 songs_table_insert = """
@@ -133,6 +139,8 @@ songs_table_insert = """
         duration 
     )
     VALUES (%s, %s, %s, %s, %s)
+    ON CONFLICT (song_id)
+    DO NOTHING;
 """
 
 artists_table_insert = """
@@ -144,6 +152,8 @@ artists_table_insert = """
         longitude
     )
     VALUES (%s, %s, %s, %s, %s)
+    ON CONFLICT (artist_id)
+    DO NOTHING;
 """
 
 time_table_insert = """
