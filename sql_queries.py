@@ -1,4 +1,4 @@
-######################## DROP TABLES ###########################
+######################## DROP TABLES Queries ###########################
 
 songplay_table_drop = "DROP TABLE IF EXISTS songplays"
 users_table_drop = "DROP TABLE IF EXISTS users"
@@ -6,9 +6,9 @@ songs_table_drop = "DROP TABLE IF EXISTS songs"
 artists_table_drop = "DROP TABLE IF EXISTS artists"
 time_table_drop = "DROP TABLE IF EXISTS time"
 
-######################### CREATE TABLES #########################
+######################### CREATE TABLES Queries #########################
  
-# Create the Fact table
+# >>> Create The Fact Table <<<
 
 # Songplays Table
 
@@ -32,7 +32,7 @@ songplay_table_create = ("""
     );
 """)
 
-# Create dimension tables
+# >>> Create Dimension Tables <<<
 
 # Users Table
 
@@ -94,7 +94,7 @@ time_table_create = ("""
     );
 """)
 
-############################ INSERT RECORDS #########################
+############################ INSERT RECORDS Queries #########################
 
 songplay_table_insert = ""
 
@@ -106,7 +106,7 @@ artists_table_insert = ""
 
 time_table_insert = ""
 
-############################# FIND SONGS ###########################
+############################# FIND SONGS Query ###########################
 
 songs_select = ""
 
