@@ -1,4 +1,4 @@
-# ETL Pipeline Project - Data Modeling with Postgres
+# ETL Pipeline and Data Modeling with Postgres
 
 > This project was a milestone in my journey to study the Data Engineer Nanodegree (provided by Udacity) which I am currently enrolled in.
 
